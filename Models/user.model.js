@@ -27,7 +27,7 @@ let userSchema = new mongoose.Schema({
     unique: true,
     required: [true, "Kindly provide the password"],
   },
-  article: [
+  blog: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Article",
@@ -39,9 +39,10 @@ userSchema.pre("save", async function (next) {
     // salt Rounding
     this.password = await bcrypt.hash(this.password, 10);
     next();
+    return;
   }
   next();
 });
 
-let User = mongoose.model("user", userSchema);
+let User = mongoose.model("User", userSchema);
 module.exports = { User };

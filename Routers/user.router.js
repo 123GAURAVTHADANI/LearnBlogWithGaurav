@@ -16,18 +16,17 @@ userRouter.post("/createUser", (req, res) => {
 
 userRouter.get("/getUsers", (req, res) => {
   User.find()
+    .populate("blog")
     .then((response) => {
       res
         .status(200)
         .json({ Message: "User is fetched Successfully", response: response });
     })
     .catch((error) => {
+      console.log(error);
       res.status(500).json({ Message: "Something went wrong!!", error: error });
     });
 });
-
-
-
 
 module.exports = { userRouter };
 // Post
